@@ -3,11 +3,14 @@
 import { useEffect, useState } from "react";
 
 export default function App() {
-  const [amount, setAmount] = useState(1);
   // const [currencies, setCurrencies] = useState([]);
-  const [fromCur, setFromCur] = useState("USD");
-  const [toCur, setToCur] = useState("USD");
+  const [curr1, setCurr1] = useState("USD");
+  const [curr2, setCurr2] = useState("USD");
   // const [error, setError] = useState("");
+  const [amount, setAmount] = useState(0);
+  const [output, setOutput] = useState(0);
+
+  console.log(output);
 
   useEffect(
     function () {
@@ -48,11 +51,7 @@ export default function App() {
 
   return (
     <div>
-      <input
-        type="text"
-        value={amount}
-        onChange={(e) => setAmount(Number(e.target.value))}
-      />
+      <input type="text" onChange={(e) => setAmount(e.target.value)} />
       <select onChange={(e) => setCurr1(e.target.value)}>
         <option value="USD">USD</option>
         <option value="EUR">EUR</option>
