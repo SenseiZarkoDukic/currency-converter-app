@@ -7,6 +7,8 @@ export default function App() {
   // const [currencies, setCurrencies] = useState([]);
   const [fromCur, setFromCur] = useState("EUR");
   const [toCur, setToCur] = useState("USD");
+  const [converted, setConverted] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   // const [error, setError] = useState("");
 
   useEffect(
@@ -15,6 +17,7 @@ export default function App() {
 
       async function fetchCurrencies() {
         // try {
+        setIsLoading(true);
         const res = await fetch(
           `https://api.frankfurter.app/latest?amount=${amount}&from=${fromCur}&to=${toCur}`
         );
@@ -24,7 +27,7 @@ export default function App() {
         //           throw new Error("Something went wrong with fetching currencies");
 
         const data = await res.json();
-        console.log(data.rates[toCur]);
+        setConverted(data.rates[toCur]);
         //         if (data.Response === "False") throw new Error("Currency not found");
         //         curr2 === "USD" && setOutput(data.rates.USD);
         //         curr2 === "EUR" && setOutput(data.rates.EUR);
@@ -38,7 +41,7 @@ export default function App() {
         //       }
       }
 
-      //     if (curr1 === curr2) return;
+      if (fromCur === toCur) return setConverted(amount);
       fetchCurrencies();
 
       //     return function () {
@@ -54,20 +57,31 @@ export default function App() {
         type="text"
         value={amount}
         onChange={(e) => setAmount(Number(e.target.value))}
+        disabled={isLoading}
       />
-      <select value={fromCur} onChange={(e) => setFromCur(e.target.value)}>
+      <select
+        value={fromCur}
+        onChange={(e) => setFromCur(e.target.value)}
+        disabled={isLoading}
+      >
         <option value="USD">USD</option>
         <option value="EUR">EUR</option>
         <option value="CAD">CAD</option>
         <option value="INR">INR</option>
       </select>
-      <select value={toCur} onChange={(e) => setToCur(e.target.value)}>
+      <select
+        value={toCur}
+        onChange={(e) => setToCur(e.target.value)}
+        disabled={isLoading}
+      >
         <option value="USD">USD</option>
         <option value="EUR">EUR</option>
         <option value="CAD">CAD</option>
         <option value="INR">INR</option>
       </select>
-      <p>output</p>
+      <p>
+        {converted} {toCur}
+      </p>
     </div>
   );
 }
