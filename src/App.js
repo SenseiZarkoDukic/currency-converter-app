@@ -16,7 +16,7 @@ export default function App() {
       async function fetchCurrencies() {
         // try {
         const res = await fetch(
-          `https://api.frankfurter.app/latest?amount=${amount}&from=${toCur}&to=${fromCur}`
+          `https://api.frankfurter.app/latest?amount=${amount}&from=${fromCur}&to=${toCur}`
         );
         //           { signal: controller.signal }
         //         );
@@ -24,7 +24,7 @@ export default function App() {
         //           throw new Error("Something went wrong with fetching currencies");
 
         const data = await res.json();
-        console.log(data);
+        console.log(data.rates[toCur]);
         //         if (data.Response === "False") throw new Error("Currency not found");
         //         curr2 === "USD" && setOutput(data.rates.USD);
         //         curr2 === "EUR" && setOutput(data.rates.EUR);

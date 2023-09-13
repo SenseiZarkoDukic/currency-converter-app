@@ -27,15 +27,17 @@ export default function App() {
 
           const data = await res.json();
           if (data.Response === "False") throw new Error("Currency not found");
-          curr2 === "USD" && setOutput(data.rates.USD);
-          curr2 === "EUR" && setOutput(data.rates.EUR);
-          curr2 === "CAD" && setOutput(data.rates.CAD);
-          curr2 === "INR" && setOutput(data.rates.INR);
+
+          setOutput(data.rates[curr2]);
+
+          // curr2 === "USD" && setOutput(data.rates.USD);
+          // curr2 === "EUR" && setOutput(data.rates.EUR);
+          // curr2 === "CAD" && setOutput(data.rates.CAD);
+          // curr2 === "INR" && setOutput(data.rates.INR);
         } catch (err) {
           if (err.name !== "AbortError") {
             console.log(err.message);
           }
-          console.log(err.message);
         }
       }
 
